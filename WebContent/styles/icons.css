@@ -1,0 +1,66 @@
+.iconButtons
+{
+  display: inline-block;
+  color: #333;
+  border: none;
+  background: none;  
+  outline:0 !important;
+}
+
+.iconButtons:before
+{
+  font-size: 1.2em;
+  pointer-events: none;
+}
+
+.fa-rotate-45 {
+-webkit-transform: rotate(110deg);
+-moz-transform: rotate(110deg);
+-ms-transform: rotate(110deg);
+-o-transform: rotate(110deg);
+transform: rotate(110deg);
+}
+
+.add:before    { content: "\271A"; }
+
+.edit:before   { 
+	content: "\270E";
+	-webkit-transform: rotate(110deg);
+	-moz-transform: rotate(110deg);
+	-ms-transform: rotate(110deg);
+	-o-transform: rotate(110deg);
+	transform: rotate(110deg);	
+}
+
+.delete:before { content: "\2718";}
+.save:before   { content: "\2714";}
+.email:before  { content: "\2709";}
+.cross:before  { content: "\2716"; }
+
+
+.action-icon-bg{
+  color: #808080;
+  border: none;
+  border-color: #F8FAFA;
+  background: #FDFAFA;
+  border-radius: 3px;
+  height: 30px;
+  width: 40px;
+  padding-top: 3px;
+  padding-left: 6px;
+  font-size: 14px;
+  right: -5px;
+}
+.action-icon-bg:hover{
+	border: 1px solid #3C85C2;
+	background: #FDFAFA;
+	color: #2A86C8;
+	border-radius: 3px;
+}
+.action-icon-bg:active{
+	color: #FFF;
+	background-color: #006A8D;
+	border-radius: 3px;
+	outline: 0 !important;
+	Box-Shadow: Inset top-2px;
+}

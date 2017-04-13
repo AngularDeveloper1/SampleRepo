@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Evalu8 by Pearson</title>
+
+<!-- build:css(.tmp) styles/vendor.css -->
+<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css" rel="stylesheet" />
+<link href="bower_components/angular-block-ui/dist/angular-block-ui.css" rel="stylesheet" />
+<link href="bower_components/angular-notify/dist/angular-notify.min.css" rel="stylesheet" />
+<link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<!-- endbuild -->
+
+
+<!-- build:css(.tmp) styles/main.css -->
+<link href="styles/icon-fonts/style.css" rel="stylesheet" />
+<link href="styles/userSettings.css" rel="stylesheet" />
+<link href="styles/icons.css" rel="stylesheet" />
+
+<link href="styles/testGenMain.css" rel="stylesheet" />
+<link href="styles/new-ui.css" rel="stylesheet" />
+<link href="styles/main.css" rel="stylesheet" />
+<link href="styles/angular-block-ui.css" rel="stylesheet" />
+<link href="styles/style.css" rel="stylesheet" />
+<!-- endbuild -->
+
+</head>
+<body role="document" ng-app="evalu8Demo" block-ui="BlockPage">
+	<!-- Fixed navbar -->
+	<div class="container-fluid" role="main">
+		<div class="row">
+
+			<div class="col-lg-12"
+				ng-include="'views/partials/navigation-bar.html'"
+				ng-controller="NavigationBarController"></div>
+		</div>
+		<div class="row">
+			<div ui-view></div>
+		</div>
+	</div>
+
+	<!-- build:js({WebContent,.tmp}) scripts/vendor.js -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="scripts/externals/angular-ui-tree.js"></script>
+	<script src="bower_components/checklist-model/checklist-model.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="bower_components/ng-file-upload-shim/angular-file-upload-shim.min.js"></script>
+	<script src="bower_components/ng-file-upload-shim/angular-file-upload.min.js"></script>
+	<script src="bower_components/lodash/lodash.min.js"></script>
+    <script src="bower_components/angular-wizard/dist/angular-wizard.js"></script>
+	<script src="bower_components/angular-notify/dist/angular-notify.min.js"></script>
+	<script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+	<script src="bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
+	<script src="bower_components/angulartics/src/angulartics.js"></script>
+	<script src="bower_components/angulartics/src/angulartics-ga.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js({WebContent,.tmp}) scripts/qtip.js -->
+	<script src="scripts/externals/qti-player.js"></script>
+	<!-- endbuild -->
+	
+	<!-- build:js({WebContent,.tmp}) scripts/main.js -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/config.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js({WebContent,.tmp}) scripts/controllers.js -->
+	<script src="scripts/controllers/signin-controller.js"></script>
+	<script src="scripts/controllers/login-controller.js"></script>
+	<script src="scripts/controllers/selectPrintSettings-controller.js"></script>
+	
+	<script src="scripts/controllers/myTests-controller.js"></script>
+	<script src="scripts/controllers/questionBanks-controller.js"></script>
+	<script src="scripts/controllers/customQuestionBanks-controller.js"></script>
+	<script src="scripts/controllers/testCreationFrame-controller.js"></script>
+	<script src="scripts/controllers/exportTest-controller.js"></script>
+	<script src="scripts/controllers/saveConfirmation-controller.js"></script>
+	<script src="scripts/controllers/testWizardErrorPopup-controller.js"></script>
+	<script src="scripts/controllers/alertMessage-controller.js"></script>
+	<script src="scripts/controllers/testVersionCreation-controller.js"></script>
+    <script src="scripts/controllers/home-controller.js"></script>
+	<script src="scripts/controllers/navigation-bar-controller.js"></script>
+	<script src="scripts/controllers/welcome-controller.js"></script>
+	<script src="scripts/controllers/resources-tabs-controller.js"></script>
+    <script src="scripts/controllers/startupWizard-controller.js"></script>
+	<script src="scripts/controllers/usersettings-controller.js"></script>
+    <script src="scripts/controllers/usersettingsWizard-controller.js"></script>
+    <script src="scripts/controllers/save-test-dialog-controller.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js({WebContent,.tmp}) scripts/directive.js -->
+    <script src="scripts/directives/ngEnter.js"></script>
+    <script src="scripts/directives/ngFocus.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js({WebContent,.tmp}) scripts/services.js -->
+	<script src="scripts/services/authservices.js"></script>
+	<script src="scripts/services/disciplineService.js"></script>
+	<script src="scripts/services/bookService.js"></script>
+	<script src="scripts/services/containerService.js"></script>
+	<script src="scripts/services/userService.js"></script>
+	<script src="scripts/services/userFolderService.js"></script>
+	<script src="scripts/services/testService.js"></script>
+	<script src="scripts/services/sharedTabService.js"></script>
+	<script src="scripts/services/archiveService.js"></script>
+	<script src="scripts/services/customQuestionBanksService.js"></script>
+	<script src="scripts/services/userQuestionsService.js"></script>
+	<script src="scripts/services/enums.js"></script>
+    <script src="scripts/services/common-service.js"></script>
+    <script src="scripts/services/questionService.js"></script>
+    <script src="scripts/ga.js"></script>
+	<!-- endbuild -->
+
+
+    <script src='https://int-piapi.stg-openclass.com/v1/piapi-int/login/js/session.js'></script>
+
+    <script>
+    	piSession.initialize(evalu8config.clientId);
+        piSession.monitorUserActivity(true);
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<nav class="navbar navbar-inverse navbar-fixed-top header-nav-bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="">Pearson Test Builder</a>
+        </div>
+         <div id="navbar" class="navbar-collapse collapse pull-right margin-top-10">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                
+                    <a ng-show="showUserInNavBar()" href="" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                    aria-expanded="false"><span class="fa fa-user"></span>&nbsp {{$root.globals.givenName}} <span class="glyphicon glyphicon-chevron-down" 
+                    tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter"  tooltip="Logout and Account Information"></span><span 
+                    class="border-right margin-border"></span></a>
+                    
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <span class="settingsdiv blockinline width100 margin-bot-10"> <li class="text-center"><label class="margin-lft-20 navbar-popover-text" title="{{$root.globals.givenName}} {{$root.globals.familyName}}"><strong>{{$root.globals.givenName}} {{$root.globals.familyName}}</strong></label></li>
+                        <li class ="text-center"><label class="margin-lft-20 navbar-popover-text" title="{{$root.globals.emailAddress}}">{{$root.globals.emailAddress}}</label></li></span>
+                        <li>
+                            <button id="settings" type="button" class="btn btn-default margin-lft-45" ng-disabled="isSettingsClicked"ng-click="settings_open()">Settings</button>
+                            <button id="signout" type="button" class="btn btn-default" ng-click="logout()">Sign Out</button>
+                        </li>
+                    </ul>
+                </li>
+                <!--<li ng-show="userName!=''">
+                    <a  ><div class="glyphicon glyphicon-user"></div> {{userName}}<div class="glyphicon glyphicon-chevron-down"></div> </a>
+                </li>-->
+                <li><a href="http://247pearsoned.custhelp.com/app/answers/detail/a_id/13366" target="_blank" class='glyphicon glyphicon-question-sign padding-right-0' tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Test Builder Help"> </a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>

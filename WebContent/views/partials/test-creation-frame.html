@@ -1,0 +1,361 @@
+<div id="TestCreationArea" class="botborderright">
+	<!--<div class="row">-->
+	<div class="padding-top-10">
+		<div id="caption" class="col-sm-4 col-md-4 col-lg-4 pull-left">
+			<h4>Create or Edit Tests</h4>
+		</div>
+		<div class="col-sm-8 col-md-8 col-lg-8 text-right padding-right-0">
+			<a type="button" id="testwizard" class="btn btn-primary"
+				ng-disabled="sharedTabService.isTestWizardTabPresent"
+				ng-click="addTestWizard()" tooltip-placement="bottom"
+				tooltip-append-to-body="true" tooltip-trigger="mouseenter"
+				tooltip="Test Creation Wizard"> <span   class="{{wizardClass}}"></span>
+				Test Wizard
+			</a>
+
+			<div class="btn-group" role="group" aria-label="...">
+				<div class="btn-group save-dropdown" role="group">
+					<button id="savemain" class="btn btn-primary dropdown-toggle"
+						type="button"
+						ng-disabled="tests[currentIndex].isTestWizard && tests[currentIndex].testId == null"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						Save <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu"
+						aria-labelledby="dropdownMenu1">
+						<li ng-show="testType == 'PublisherTest'" role="presentation"><a
+							style="color: lightgray; cursor: not-allowed;"
+							tooltip-placement="left" tooltip-append-to-body="true"
+							tooltip-trigger="mouseenter" tooltip="Save your tests"
+							role="menuitem" tabindex="-1">Save</a></li>
+						<li ng-show="testType != 'PublisherTest'" role="presentation"><a
+							id="save" ng-click="saveTest()"
+							ng-disabled="tests[currentIndex].isTestWizard && tests[currentIndex].testId == null"
+							tooltip-placement="left" tooltip-append-to-body="true"
+							tooltip-trigger="mouseenter" tooltip="Save your tests"
+							role="menuitem" tabindex="-1">Save</a></li>
+						<li role="presentation"><a id="saveas"
+							ng-click="openSaveAsTestDialog()"
+							ng-disabled="tests[currentIndex].isTestWizard && tests[currentIndex].testId == null"
+							tooltip-placement="left" tooltip-append-to-body="true"
+							tooltip-trigger="mouseenter" tooltip="Save your tests as"
+							role="menuitem" tabindex="-1">Save As</a></li>
+					</ul>
+				</div>
+				<!--<button type="button" class="btn btn-primary" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Print and Format Tests">Print</button>-->
+				
+				<button type="button" id="print" class="btn btn-primary"
+				ng-class="{disabled : (!sharedTabService.tests[sharedTabService.currentTabIndex].testId || sharedTabService.tests[sharedTabService.currentTabIndex].isBtnClicked)}"
+					ng-click="print()" tooltip-placement="bottom"
+					tooltip-append-to-body="true" tooltip-trigger="mouseenter"
+					tooltip="Print Test Files">Print</button>
+					
+				<button type="button" id="export" class="btn btn-primary"
+					ng-class="{disabled : (!sharedTabService.tests[sharedTabService.currentTabIndex].testId || sharedTabService.tests[sharedTabService.currentTabIndex].isBtnClicked)}"
+					ng-click="open()" tooltip-placement="bottom"
+					tooltip-append-to-body="true" tooltip-trigger="mouseenter"
+					tooltip="Export Test Files">Export</button>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="content" class="blockinline width100">
+		<div class="full full-width-tabs inline">
+
+			<ul class="nav nav-tabs test-tabs margin-lft-10 padding-top-6"
+				id="mytab">
+				<li ng-click="addNewTest()">
+					<button type="button" event-focus="click"
+						event-focus-id="testCaption"
+						class="btn btn-default glyphicon glyphicon-plus addNewTab"
+						tooltip-placement="bottom" tooltip-append-to-body="true"
+						tooltip-trigger="mouseenter" tooltip="New tab"></button>
+				</li>
+
+				<li ng-show="$index < 5" ng-repeat="test in tests"
+					ng-class="{active: isActiveTab(test.id)}"
+					ng-click="onClickTab(test)" id="{{test.id}}" event-focus="click"
+					event-focus-id="testCaption">
+					<div class="newTest-close glyphicon glyphicon-remove"
+						ng-show="test.showCloseButton"
+						ng-click="closeTabWithConfirmation($event,test)"></div> <a href=""
+					title="{{test.tabTitle}}" data-toggle="tab">{{test.tabTitle}}</a>
+				</li>
+				<li class="dropdown" ng-show="tests.length > 5"><a
+					class="dropdown-toggle dot" data-toggle="dropdown"
+					tooltip-placement="bottom" tooltip-append-to-body="true"
+					tooltip-trigger="mouseenter" tooltip="More tabs">...</a>
+					<ul class="dropdown-menu">
+						<li ng-show="$index >= 5" ng-repeat="test in tests"
+							ng-class="{active: isActiveTab(test.id)}"
+							ng-click="onClickTab(test)" id="{{test.id}}" event-focus="click"
+							event-focus-id="testCaption">
+							<div class="newTest-close glyphicon glyphicon-remove"
+								ng-click="closeTabWithConfirmation($event,test)"></div> <a
+							href="" title="{{test.tabTitle}}">{{test.tabTitle}}</a>
+						</li>
+					</ul></li>
+			</ul>
+
+		</div>
+	</div>
+
+</div>
+
+<!--<div class="QuestionArea">-->
+<div class="testCreationParent">
+	<!-- Bootstrap css main container -->
+	<div class="row">
+		<div class="questionFeature">
+			<button id="versions" ng-click="TestVersion_open()"
+				class="btn btn-primary pull-right"
+				ng-class="{disabled : (!sharedTabService.tests[sharedTabService.currentTabIndex].testId || sharedTabService.tests[sharedTabService.currentTabIndex].treeNode.testType == enumService.TEST_TYPE.PublisherTest || sharedTabService.tests[sharedTabService.currentTabIndex].isBtnClicked)}"
+				tooltip-placement="bottom" tooltip-append-to-body="true"
+				tooltip-trigger="mouseenter" tooltip="Create test versions">
+				New Version</button>
+		</div>
+	</div>
+
+	<div class="TestcreationInfo"
+		ng-show=" tests[currentIndex].isTestWizard">
+
+
+		<p class='tw-helptext-head'>
+			<span class="glyphicon wizardBlack" aria-hidden="true"></span> Welcome
+			to Pearson Test Builder Test Wizard
+		</p>
+		<p>Pearson Test Builder will create a test from the topics/chapters and criteria you select. </p>
+		<p ng-show="tests[currentIndex].criterias.length == 0">1. Select chapters, topics or folders of questions NOT individual questions.</p>
+		<div ng-show="tests[currentIndex].criterias.length != 0">
+			<ol>
+				<li>1. Enter test title</li>
+				<li>2. Select criteria for each selected topic</li>
+				<li>3. Choose Create Test</li>
+			</ol>
+		</div>
+	</div>
+	<div class="row"
+		ng-hide="tests[currentIndex].isTestWizard && tests[currentIndex].criterias.length == 0">
+		<div class="col-lg-1 margin-rt-10neg margin-top-5 margin-lft-5">
+			<h4>Test</h4>
+		</div>
+		<div class="col-lg-11 margin-rt-5 margin-top-5">
+			<input type="text" ng-model="tests[currentIndex].title"
+				ng-change="updateTestTitle(testTitle)" id="testCaption"
+				class="form-control input-sm" placeholder="Enter test title">
+		</div>
+	</div>
+	<div class="row" ng-show="!tests[currentIndex].isTestWizard">
+		<div class="col-lg-1 margin-lft-5">
+			<h4>Name</h4>
+		</div>
+	</div>
+	<div id="toolbarPlaceholder"></div>
+	<div class="row" ng-show="tests[currentIndex].isTestWizard">
+		<div ui-tree droppable="true">
+			<div class="test-wizard-container">
+				<div ui-tree-nodes ng-model="tests[currentIndex].criterias">
+                    <div class="row repeatCriteria"
+                         ng-repeat="criteria in tests[currentIndex].criterias" ui-tree-node
+                         draggable="false"
+                         ng-show="tests[currentIndex].isTestWizard &&  tests[currentIndex].criterias.length != 0 && criteria.totalQuestions != 0">
+                        <div>
+                            <div ng-show="$first || !isApplySameCriteriaToAll">
+                                <div class="col-lg-11  form-inline  panel panel-default bg-gray-lighter">
+                                    <div class="row wizardHeader">
+                                        <label title="{{criteria.folderTitle}} ({{criteria.totalQuestions}} Questions)">
+                                            {{criteria.folderTitle}}
+                                            ({{criteria.totalQuestions}} Questions)
+                                        </label>
+                                        <button type="button" class="close"
+                                                ng-click="closeCriteria(criteria,true)" aria-label="Close"
+                                                tooltip-placement="bottom" tooltip-append-to-body="true"
+                                                tooltip-trigger="mouseenter" tooltip="Delete this section">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="row form-group container-full">
+                                        <div>
+                                            <span class="questionHeader">
+                                                <h5>Questions:</h5>
+                                            </span> <span class="typeHeader">
+                                                <h5>Type:</h5>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <div class="row">
+
+                                                <div class="col-lg-12">
+                                                    <div class="row criteriaAlign">
+                                                        <div class="text-left no-padding"
+                                                             ng-class="$last?'col-lg-3':'col-lg-2'"
+                                                             ng-repeat="defaultNumberOfQuestion in criteria.defaultNumberOfQuestions">
+                                                            <input type="radio" name="{{criteria.id}}"
+                                                                   ng-model="criteria.numberOfQuestionsSelected "
+                                                                   value="{{defaultNumberOfQuestion}}"
+                                                                   ng-change="fillQuestionCount(criteria)"
+                                                                   ng-disabled='criteria.totalQuestions < defaultNumberOfQuestion' />
+                                                            {{defaultNumberOfQuestion}} <input type="text"
+                                                                                               ng-disabled='criteria.numberOfQuestionsSelected > 0'
+                                                                                               ng-model="criteria.numberOfQuestionsEntered"
+                                                                                               ng-change="SelecteNumberOnly(criteria)" ng-if="$last"
+                                                                                               placeholder="Enter #"
+                                                                                               class="form-control input-sm tw-no-of-qns-input" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 questionTypeSec">
+
+                                                    <ul class="questionColumns">
+                                                        <li ng-repeat="questiontype in sharedTabService.QuestionTypes"
+                                                            ng-if="$index % 3 == 0">
+                                                            <input type="checkbox"
+                                                                   ng-disabled='criteria.questiontypes.indexOf(questiontype.key) == -1'
+                                                                   ng-model="value" value="{{questiontype.key}}"
+                                                                   ng-click='toggleQuestiontypeSelection(criteria,questiontype.key)'
+                                                                   ng-checked="criteria.selectedQuestiontypes.indexOf(questiontype.key) != -1"><span>{{questiontype.value}}</span>
+                                                        </li>
+                                                    </ul>
+                                                    <ul class="questionColumns">
+                                                        <li ng-repeat="questiontype in sharedTabService.QuestionTypes"
+                                                            ng-if="$index % 3 == 1">
+                                                            <input type="checkbox"
+                                                                   ng-disabled='criteria.questiontypes.indexOf(questiontype.key) == -1'
+                                                                   ng-model="value" value="{{questiontype.key}}"
+                                                                   ng-click='toggleQuestiontypeSelection(criteria,questiontype.key)'
+                                                                   ng-checked="criteria.selectedQuestiontypes.indexOf(questiontype.key) != -1"><span>{{questiontype.value}}</span>
+                                                        </li>
+                                                    </ul>
+                                                    <ul class="questionColumns">
+                                                        <li ng-repeat="questiontype in sharedTabService.QuestionTypes"
+                                                            ng-if="$index % 3 == 2">
+                                                            <input type="checkbox"
+                                                                   ng-disabled='criteria.questiontypes.indexOf(questiontype.key) == -1'
+                                                                   ng-model="value" value="{{questiontype.key}}"
+                                                                   ng-click='toggleQuestiontypeSelection(criteria,questiontype.key)'
+                                                                   ng-checked="criteria.selectedQuestiontypes.indexOf(questiontype.key) != -1"><span>{{questiontype.value}}</span>
+                                                        </li>
+                                                    </ul>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-11 criteria"
+                                     ng-show="$first && tests[currentIndex].criterias.length > 1">
+                                    <div class="">
+                                        <input id="applyCriteria" type="checkbox"
+                                               ng-model="isApplySameCriteriaToAll"
+                                               ng-change='toggleApplySameCriteria(this)'>Use same
+                                        criteria for all topics
+                                    </div>
+                                </div>
+                                <div class="col-lg-11 criteria"
+                                     ng-repeat="topic in tests[currentIndex].criterias"
+                                     ng-if="!$first && isApplySameCriteriaToAll">
+                                    <div class="wizardSectionTitle">
+                                        <span title="{{topic.folderTitle}} ({{topic.totalQuestions}} Questions)">
+                                            {{topic.folderTitle}}
+                                            ({{topic.totalQuestions}} Questions)
+                                        </span>
+                                    </div>
+                                    <button type="button"
+                                            class="close margin-rt-5neg margin-top-20neg"
+                                            ng-click="closeCriteria(topic,false)" aria-label="Close"
+                                            tooltip-placement="bottom" tooltip-append-to-body="true"
+                                            tooltip-trigger="mouseenter" tooltip="Delete this section">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				<div class="row" ng-show="tests[currentIndex].criterias.length != 0">
+					<div class="col-lg-7 text-right">Add another topic or select
+						Create Test</div>
+					<div class="col-lg-3 pull-right">
+						<button id="createtest" class="btn btn-primary"
+							ng-click="previevTest()">Create Test</button>
+					</div>
+					<div class="col-lg-2 pull-right">
+						<button class="btn btn-default"
+							ng-click="closeTab(tests[currentIndex])">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/ng-template" id="questions_renderer.html">
+            <div ui-tree-handle class="printViewContainer tree-node tree-node-content questionList" ng-class="{questionTitleInTree: node.questionXML}">
+	            <div ng-if="node.textHTML" ng-bind-html="getHTML(this)">
+            </div>
+        </div>
+    </script>
+
+	<div id="qstnArea" ng-class="tests[currentIndex].IsAnyQstnEditMode? 'qstnArea' : 'qstnAreaPrint'" data-ui-tree
+		ng-show="!tests[currentIndex].isTestWizard">
+		<div  id="tree2-root">
+			<!-- <div class="row"> -->
+			<div class="TestcreationInfo"
+				ng-show="!tests[currentIndex].questions.length && !tests[currentIndex].isTestWizard">
+
+				<span class="fa fa-lightbulb-o circle-icon pull-left"
+					aria-hidden="true"></span>
+				<p>To create a new test, select questions in Question Banks or Custom Questions, 
+					then click on the pencil icon or drag the questions here.</p>
+				<p>To edit one of your tests, open Your Tests and drag test
+					here.</p>
+				<p>To create a test automatically from selected topics, select
+					the Test Wizard button.</p>
+			</div>
+			<!--  </div> -->
+
+			<ol droppable="true" ui-tree-nodes id="QuestArea" class="questIndex"
+				type="1" ng-model="tests[currentIndex].questions">
+				<li draggable="{{!node.IsEditView}}" quiztype={{node.quizType}}
+					class="questIndex displayQuestionLI"
+					printmode="{{!node.IsEditView}}"
+					ng-mouseover="hoverIn(this)"
+					ng-mouseleave="hoverOut()" 
+					ng-class="{testQuestionSelected:node.isNodeSelected , twoDigitIndex: $index + 1 > 9 ,threedigitIndex: $index + 1 > 99, fourDigitIndex: $index + 1 > 999}"
+					ng-repeat="node in tests[currentIndex].questions" ui-tree-node
+					ng-include="'qti_player_question_renderer.html'"></li>
+			</ol>
+		</div>
+
+		<script type="text/ng-template" id="qti_player_question_renderer.html">			
+			<div class="qtiQuestionContainer">
+			<div>
+				<qti-Player></qti-Player>
+			</div>
+			<div ng-show="node.IsEditView" >
+				<div question-Metadata></div>
+			</div>
+                <div class="editViewLinks" data-ng-if="node.IsEditView">                     
+                    <a href="" id="switchLink" class="qstnLinks" data-ng-click="toggleEdit(node)">Save</a>
+                    <a href="" class="qstnLinks qstnDeleteLinks" data-ng-click="closeQuestions(tests[currentIndex],$index)">Delete</a>
+                </div>
+                <div class="printViewLinks" data-ng-if="!node.IsEditView" ng-show="showQstnEditIcon">
+                    <a href="" id="switchLink" class="qstnLinks" data-ng-click="toggleEdit(node)">Edit</a>
+                    <a href="" class="qstnLinks qstnDeleteLinks" data-ng-click="closeQuestions(tests[currentIndex],$index)">Delete</a>
+                </div>
+                 
+
+		</div>
+        </script>
+        
+	</div>
+
+
+</div>

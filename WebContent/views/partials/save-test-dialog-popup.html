@@ -1,0 +1,70 @@
+<style type="text/css">
+    @media (min-width: 768px) {
+        .modal-dialog {
+            width: 490px;
+        }
+    }
+</style>
+ <div class="modal-body inlineblock width100 ">
+     <div class="row">
+         <div class="col-lg-12 width100 inlineblock">
+             <div class="pull-left margin-rt-10 margin-top-10 bold ">Save as:</div>
+             <div class="pull-left">
+                 <input ng-model="title" type="text" class="form-control width100" placeholder="" focus-me />
+             </div>
+         </div>
+     </div>
+     <div class="row">
+         <div class="col-lg-12 width100">
+             <div class="pull-left margin-rt-10 margin-top-10 bold">Save where in Your Tests:</div>
+             <div class="pull-right">
+                 <button type="button" class="btn btn-primary" ng-click="openAddNewFolderPopup()">New Folder</button>
+             </div>
+         </div>
+     </div>
+     
+     
+    <div class="margin-top-20 modaltablewidth table-bordered inlineblock" id="scroll">
+        <ul ng-model="node" class="folder-template-container">
+            <li ng-repeat="node in node" class="modaldivwidth">
+            <div ng-click="getFolders(node,this)" ng-class="{active : node.isSelected}" class="text14 node-text" title="{{node.title}}">{{node.title}}</div><span ng-show="node.isSelected" class="glyphicon glyphicon-triangle-right savearrow pull-right"></span>
+                <div class="folder-template" ng-show="node.nodes">
+                    <ul ng-model="node" ng-include="'folder_render.html'" class="folder-template-container"> </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+      
+     <script type="text/ng-template" id="folder_render.html">          
+         <li ng-repeat="node in node.nodes" data-ng-if="node.nodeType != 'empty'" ng-Auto-Scroll class="modaldivwidth folder-main-container">
+             <span>
+                 <div ng-click="getFolders(node,this)" ng-class="{active : node.isSelected}" class="text14  node-text" title="{{node.title}}">{{node.title}}</div><span ng-show="node.isSelected" class="glyphicon glyphicon-triangle-right savearrow pull-right"></span>
+                 <div ng-model="node" ng-include="'folder_render.html'" class="folder-template" ng-show="node.nodes"> </div>
+             </span>
+         </li>
+     </script>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="save()">Save</button>
+
+    <script type="text/ng-template" id="addNewFolder.html">
+        <div class="modal-header">
+            <h3 class="modal-default-header-title  margin-top-5">New folder</h3>
+        </div>
+        <div class="modal-body row">
+            <div class="col-lg-12 width100 inlineblock">
+                <div class="pull-left margin-rt-10 margin-top-10 ">Name of new folder:</div>
+                <div class="pull-left">
+                    <input ng-model="folderName" type="text" class="form-control width100" placeholder="Untitled Folder" focus-me />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer new-folder-modal-footer">
+            <div class="col-lg-12">
+                <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-primary" ng-click="createFolder()">Create</button>
+            </div>
+        </div>
+    </script>
+</div>

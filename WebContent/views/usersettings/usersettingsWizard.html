@@ -1,0 +1,125 @@
+<script type="text/ng-template" id="customTemplate.html">
+  <a>
+    <span class="autocompleTitle" bind-html-unsafe="match.model.title | typeaheadHighlight:query"></span><br>
+	<span class="autocompleteField">ISBN10 : </span><span class="autocompleteValue" bind-html-unsafe="match.model.isbn10 | typeaheadHighlight:query"></span>
+	<span class="autocompleteField">ISBN13 : </span><span class="autocompleteValue" bind-html-unsafe="match.model.isbn13 | typeaheadHighlight:query"></span><br>
+	<span class="autocompleteField">Publisher : </span><span class="autocompleteValue" bind-html-unsafe="match.model.publisher | typeaheadHighlight:query"></span>
+	<span class="autocompleteField">BookID : </span><span class="autocompleteValue" bind-html-unsafe="match.model.guid | typeaheadHighlight:query"></span><br>
+	<span class="autocompleteField">Authors : </span><span class="autocompleteValue" bind-html-unsafe="match.model.authorName | typeaheadHighlight:query"></span>
+  </a>
+</script>
+
+<div class="modal-header">
+	<button type="button" class="close" data-ng-click="cancel()"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 ng-if="step == '2'" class="modal-default-header-title margin-lft-15"
+		id="myModalLabel">Add Question Banks</h4>
+	<h4 ng-if="step == '1'" class="modal-default-header-title margin-lft-15"
+		id="myModalLabel">Add Disciplines</h4>
+</div>
+
+<div class="modal-body">
+	<div class="container-fluid paddingall20">
+		<div class="row">
+			<div class="col-md-5">
+				<div>
+					<div ng-if="step == '2'" ng-click="setStep('1')"
+						id="changeDisciplineLinkId" class="btnGotoDispBook">
+						<i class="glyphicon glyphicon-arrow-left"></i> Change Discipline
+					</div>
+					<div ng-if="step == '1'" id="changeBooksLinkId" 
+							ng-click="setStep('2')" class="btnGotoDispBook">  
+							 Change Books  <i class="glyphicon glyphicon-arrow-right"></i>
+					</div>
+					
+				</div>
+			</div>
+			<div class=" col-md-7 text-right margin-lft-15neg ">
+				   <button ng-click="cancel()" class="backButton">Cancel</button>
+				   <button class="nextButton" ng-if="step == '2'"
+					ng-click="save()">Save</button>
+			</div>
+			
+		</div>
+
+		<div ng-if="step == '1'">
+
+			<div class="row"
+				style="vertical-align: middle; middle; margin-top: 10px;">
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="input-group searchdiv">
+								<input id="disciplineSearchTextId" type="text" placeHolder="Search Discipline"
+								class="searchDiscpline form-control" ng-model="searchedDiscipline"
+								typeahead="discipline for discipline in disciplines.all.sort() | filter:$viewValue"
+								ng-keyup="searchDiscipline($event)"> <span id="disciplineSearchIconId" class="glyphicon glyphicon-search searchicon" ng-click="searchDisciplineOnClick()"
+								tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Search"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-lg-12">
+							<div class="disciplineContainerInLightBox">
+								<div data-ng-repeat="discipline in disciplines.all.sort()"
+									ng-click="selectDiscipline(this)"
+									ng-class="{selectedDisc: isSelectedDiscipline(this)}">
+									<div class="discplineText">{{discipline}}</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div ng-if="step == '2'">
+			<div class="row"
+				style="vertical-align: middle; middle; margin-top: 10px;">
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="input-group searchdiv">
+								<input id="bookSearchTextId" type="text" placeHolder="Enter title, author, publisher, bookid or ISBN" class="searchBook form-control"
+									ng-model="searchedBook" placeholder="Custom template"
+									typeahead-template-url="customTemplate.html"
+									typeahead="book.title for book in books.all | searchFields22:$viewValue"
+									ng-keyup="searchBookOnEnter($event)"><span id="bookSearchIconID"
+									class="glyphicon glyphicon-search searchicon" ng-click="searchBookOnClick()"
+									tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Search"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-lg-12">
+							<div class="bookContainerInLightBox">
+								<div data-ng-repeat="discipline in disciplineBooks">
+									<div class="discplineText1" style="font-weight: bold;">{{discipline.name}}</div>
+									<div data-ng-repeat="book in discipline.books"
+										ng-click="selectBook(book.guid,discipline.name)"
+										ng-class="{selectedDisc: book.isSelected}"
+										ng-show="book.showEdition"
+										parentbookid="{{book.parentBookID}}">
+										<div class="expandIconForBookEditionUserSettings"
+											ng-show="book.hasEdition"
+											ng-click="showOldEdition($event,book.guid,discipline.name)">
+											<i id="{{book.guid}}" class="margin-lft-10 margin-top-4"  ng-class="book.isCollasped?'fa fa-minus-square-o':'fa fa-plus-square-o'"></i>
+										</div>
+										<div class="discplineText"><i class="fa fa-circle font10" ng-show="book.parentBookID != undefined"></i>
+											<div class="margin-lft-5">{{book.title}}</div></div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="row" style="height: 22px;"></div>
+	</div>
+	<div class="row" ></div>
+</div>

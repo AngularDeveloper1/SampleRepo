@@ -1,0 +1,21 @@
+<div class="botborder">
+    <div class="col-sm-6 col-md-6 col-lg-6 leftPanel" block-ui="LeftPanel">
+        <div class="inline">
+            <div class="resourcetab ">
+                <h4>Resources</h4>
+            </div>
+            <div class="row">
+                <div ng-include="'views/partials/resources-tabs.html'"
+                     ng-controller="ResourcesTabsController"></div>
+            </div>
+            <div class="tabs-content margin-top-22 ">
+                <div ui-view class="resources-tabs-content"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 rightPanel" block-ui="RightPanel">
+        <div class="divider pull-left row"></div>
+        <div ng-include="'views/partials/test-creation-frame.html'"
+             ng-controller="TestCreationFrameController"></div>
+    </div>
+</div>

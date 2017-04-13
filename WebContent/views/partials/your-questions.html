@@ -1,0 +1,120 @@
+<div class="testContainer">
+    <div>
+        <div>
+            <div class="newFolderDiv">
+                <button id="addfolder" class="addFolder fa fa-plus" event-focus="click" event-focus-id="txtFolderName" ng-click="showAddFolderPanel= !showAddFolderPanel" value="Add Folder" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Add new folder"><span class="text14 margin-lft-10">Add Folder</span></button>
+            </div>
+
+            <div class="createNewNode folderHighlight" ng-show="showAddFolderPanel">
+                <div class="col-md-10">
+
+                    <input type="text" data-ng-model="folderName" id="txtFolderName"
+                           ng-disabled=" isaddfolderclicked" class="form-control"
+                           placeholder="Untitled Folder " ng-enter="addNewFolder()" />
+                </div>
+                <div class="addFolderActionsDiv">
+                    <button class="folderArchiveIcon fa fa-check" data-ng-click="addNewFolder();  " ng-class="{disabledColor: !folderName || folderName.length == 0}" data-ng-disabled="!folderName || folderName.length == 0" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Save changes" />
+                    <button class="folderArchiveIcon fa fa-times" data-ng-click="showAddFolderPanel= !showAddFolderPanel; folderName=''" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Cancel" />
+
+                </div>
+            </div>
+
+        </div>
+        <div data-ui-tree id="MyTest-tree-root" class="myTest_scrollbar">
+            <ol data-ui-tree-nodes data-ng-model="defaultFolders" droppable="{{node.droppable}}">
+
+                <li data-ng-repeat="node in defaultFolders" data-ui-tree-node x-collapsed="true" draggable="{node.draggable}"
+                    data-ng-include="'defaultfolder_renderer.html'" ng-if="node.nodeType!='question'" />
+
+                <li printmode="true" class="questIndex qbQuestions" ng-class="{questionSelected:node.isNodeSelected, questionNotSelected:!node.isNodeSelected}" 
+                    ng-if="node.nodeType=='question'" ng-repeat="node in defaultFolders" collapsed="{{node.isCollapsed?'true':'false'}}" 
+                    ui-tree-node  
+                    ng-include="'qb_questions_renderer.html'" />
+            </ol>
+        </div>
+    </div>
+    
+    <script type="text/ng-template" id="qb_questions_renderer.html">
+        <div class="questionListIndex" style="float: left;">{{(node.questnNumber) }})</div>
+        <div id="QBQuestion"  nodeSelected={{node.isNodeSelected}} ng-mousedown="selectNode(this);" ui-tree-handle class="printViewContainer tree-node tree-node-content questionList" ng-class="{questionTitleInTree: node.questionXML}">
+            <button id="QBPencil" type="button" ng-show="node.showEditQuestionIcon" class="newTest-close questionIcon action-icon-bg glyphicon glyphicon-plus" ng-mousedown="editQuestion(this);$event.stopPropagation();" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip-placement="bottom" tooltip="Move question to right for editing"></button>
+            <div class="printViewContainer" ng-if="node.textHTML" ng-bind-html="getHTML(this)">
+            </div>
+        </div>
+    </script>
+    
+    <script type="text/ng-template" id="defaultfolder_renderer.html">
+        <div draggable="{{node.draggable && !node.isEditMode}}" data-ui-tree-handle>
+            <div ui-tree-handle class="tree-node tree-node-content">
+
+                <div class="treeDiv"
+                     ng-class="{treeNodeHover: hover, activeFolder: node.isNodeSelected}"
+                     ng-mouseenter="treeNodeMouseEnter(this)"
+                     ng-mouseleave="treeNodeMouseLeave(this)">
+                    <div class="maindiv" ng-class="{folderHighlight: node.isNodeSelected}" id={{node.guid}}>
+                        <div class="imagediv">
+                            <input type="image" ng-click="getFolders(this)" class="collapseImg" value=""
+                                   ng-src="{{collapsed && 'images/right_arrow2.png' || 'images/right_arrow.png'}}" ng-show="!node.isEditMode" />
+                        </div>
+                        <div class="captiondiv" >
+                            <input type="text" data-ng-model="node.title" id="txtFolderNameEdit" ng-show="node.isEditMode"
+                                   class="form-control"
+                                   placeholder="{{node.title}}" ng-enter="editFolder(this,node)" />
+                           
+							<div class="captionLabel" ng-show="!node.isEditMode" ng-mousedown="selectNode(this);">
+								<label class="labelCaption" title="{{node.title}}">{{node.title}}</label>
+							</div>
+                        </div>
+                         <div class="iconsQuestionFolder">
+                            <div ng-show="node.isNodeSelected">
+                                <div ng-show="!node.isEditMode">
+                                    <button class="action-icon-bg fa fa-pencil" event-focus="click" event-focus-id="txtFolderNameEdit" 
+									ng-click="node.isEditMode= !node.isEditMode" 
+									tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Edit folder" />
+
+                        			<button type="button" class="action-icon-bg glyphicon glyphicon-plus" 
+									ng-show="node.showEditQuestionIcon && node.nodeType != 'publisherTests'"
+									ng-mousedown="editQuestion(this);$event.stopPropagation();" data-container="body" 
+									tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip-placement="bottom" tooltip="Move question to right for editing" />
+
+                                    <button type="button" class="wizardGray action-icon-bg pull-right"
+                                    ng-show="node.showTestWizardIcon" ng-mousedown="createTestWizardCriteria(this)"
+                                    tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip-placement="bottom" tooltip="Auto create test with wizard" />
+
+                                </div>
+                                <div ng-show="node.isEditMode">
+                                    <button class="folderArchiveIcon fa fa-check" data-ng-click="editFolder(this,node);" 
+									ng-class="{disabledColor:node.title.length == 0}" data-ng-disabled="node.title.length == 0" 
+									tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Save changes" />
+                                    <button class="folderArchiveIcon fa fa-times" data-ng-click="node.isEditMode= !node.isEditMode; node.title=node.titleTemp;" 
+									tooltip-placement="bottom" tooltip-append-to-body="true" tooltip-trigger="mouseenter" tooltip="Cancel" />
+
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}" droppable="{{node.droppable}}">
+            <li class="tree-node tree-node-content" ng-repeat="node in node.nodes"
+                ui-tree-node draggable="false" node="{{node}}" data-ng-if="node.nodeType=='empty'">
+                <div ui-tree-handle class="tree-node tree-node-content">
+                    <label title={{node.title}} class="captionEmptyNode">{{node.title}}</label>
+            </li>
+            <li ng-repeat="node in node.nodes" ui-tree-node collapsed="true" draggable="{node.draggable}"
+                ng-include="'defaultfolder_renderer.html'" ng-show="{{node.nodeType=='folder'}}" />
+            <li printmode="true" ng-repeat="node in node.nodes" collapsed="true" ui-tree-node 
+				ng-show="{{node.nodeType=='question'}}" ng-class="{questionSelected:node.isNodeSelected}"
+                ng-include="'qb_questions_renderer.html'" draggable="{{node.draggable}}" class="questIndex qbQuestions" />
+        </ol>
+    </script>
+
+    <script type="text/ng-template" id="x_renderer.html">
+        <div ui-tree-handle class="tree-node tree-node-content questionList">
+            {{node}}
+        </div>
+    </script>
+</div>

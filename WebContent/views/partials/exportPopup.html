@@ -1,0 +1,256 @@
+<div class="paddingall20" >
+<div class="modal-header">
+    <button type="button" class="close closeIcon" data-ng-click="cancel()"
+            aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-default-header-title margin-lft-5neg" id="myModalLabel">
+        Export
+        Tests
+    </h4>
+    <i class="fa fa-spinner fa-pulse font-size-16 showWaiting" ng-show="showWaiting"></i>
+</div>
+
+<div class="modal-body row">
+    <!-- <div class="alert alert-danger" ng-show="isError" role="alert">{{errorMessage}}</div> -->
+    <!-- <section>
+    <div class="width-100">
+              <div class="col-md-6" >
+                <div class="bold">Export Format:</div>
+                <div>
+                  <form name="form2" method="post" action="">
+                    <p class="btn-radio">
+                      <label class="text-radio-label margin-top-5">
+                        <input name="Contact Method" type="radio" id="ContactMethod_0" value="radio" checked="">
+                        <span>MS Word</span></label>
+                      <br>
+                      <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_1">
+                        <span>PDF</span></label>
+                      <br>
+                      <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>Blackboard Pool Manager</span></label>
+                      <br>
+                      <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>Blackboard Test Manager</span></label>
+                      <br>
+                      <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>QTI 2.1</span></label>
+                      <br>
+                    </p>
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-6" >
+                <div class="bold">Answer Area:</div>
+                <div>
+                  <form name="form2" method="post" action="">
+                    <p class="btn-radio">
+                      <label class="text-radio-label margin-top-5">
+                        <input name="Contact Method" type="radio" id="ContactMethod_0" value="radio" checked="">
+                        <span>MS Word</span></label>
+                      <br>
+                      <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_1">
+                        <span>PDF</span></label>
+                      <br>
+                      <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>Blackboard Pool Manager</span></label>
+                      <br>
+                      <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>Blackboard Test Manager</span></label>
+                      <br>
+                      <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>QTI 2.1</span></label>
+                      <br>
+                    </p>
+                  </form>
+                </div>
+              </div>
+            </div>
+    </section> -->
+    <section>
+        <div class="col-sm-12 col-md-12 col-lg-12 blockinline margin-top-5 row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="bold">Export Format:</div>
+                <div data-ng-repeat="format in exportFileFormats">
+                    <label class="text-radio-label margin-top-5">
+                        <input data-ng-change="format_change()"
+                               data-ng-model="$parent.selectedFormat"
+                               data-ng-value="format"
+                               name="fileFormat" type="radio" id="ContactMethod_0" value="radio" checked="">
+                        <span>{{format.text}}</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6" ng-show="showMSWordSetting">
+                <div class="bold">Answer Area:</div>
+                <div data-ng-repeat="answerArea in answerAreas">
+
+                    <label class="text-radio-label margin-top-5">
+                        <input data-ng-model="$parent.selectedAnswerArea"
+                               data-ng-value="answerArea"
+                               name="answerOptions" type="radio" id="ContactMethod_0" value="radio" checked="">
+                        <span>{{answerArea.text}}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="margin-top-10" ng-show="showMSWordSetting">
+    <section ng-show="showMSWordSetting">
+        <div class="col-sm-12 col-md-12 col-lg-12 blockinline row  margin-top-15">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="bold">Margins:</div>
+                <div ng-repeat="margin in margins">
+                    <label class="text-radio-label margin-top-5">
+                        <input data-ng-model="$parent.selectedMargin"
+                               data-ng-value="margin"
+                               name="margins" type="radio" value="radio" checked="">
+                        <span>{{margin.text}}</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="bold">Answer Key:</div>
+                <div data-ng-repeat="answerKey in answerKeys">
+
+                    <label class="text-radio-label margin-top-5">
+                        <input data-ng-model="$parent.selectedAnswerKey"
+                               data-ng-value="answerKey"
+                               name="answerKeys" type="radio" id="ContactMethod_0" value="radio" checked="">
+                        <span>{{answerKey.text}}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="margin-top-10" ng-show="showMSWordSetting">
+    <section ng-show="showMSWordSetting">
+        <div class="col-sm-12 col-md-12 col-lg-12 row  margin-top-15 ">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="bold">Page Number:</div>
+                <div ng-repeat="pageNumber in pageNumbers">
+                    <label class="text-radio-label margin-top-5">
+                        <input data-ng-model="$parent.selectedPageNumber"
+                               data-ng-value="pageNumber"
+                               type="radio" value="radio" checked="">
+                        <span>{{pageNumber.text}}</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="bold">Labels and Versions:</div>
+                <div class="checkbox margin-top-20">
+                    <label>
+                        <input type="checkbox"
+                               data-ng-model="isIncludeStudentName"> Add student name label &amp; space
+                    </label>
+                </div>
+               <div class="checkbox" style="margin-top: 0px;">
+                    <label>
+                        <input type="checkbox"
+                               data-ng-model="isIncludeRandomizedTest"> Include all test versions
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-6 col-md-6 col-lg-6 text-left row">
+        <button id="cancel" type="button" class="btn btn-default" data-dismiss="modal"
+                data-ng-click="cancel()">
+            Cancel
+        </button>
+        <button id="export" type="button" class="btn btn-primary"
+                data-ng-click="onclick_exportTest()">
+            Export
+        </button>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 pull-right">
+        <input type="checkbox" data-ng-model="isSaveSettingsAsDefault">
+        Save settings as default
+    </div>
+
+</div>
+</div>
+
+<!--
+
+
+    <div class="col-md-6">
+        <div class="bold">Answer Area:</div>
+        <div>
+            <form name="form2" method="post" action="">
+                <p class="btn-radio">
+                    <label class="text-radio-label margin-top-5">
+                        <input name="Contact Method" type="radio" id="ContactMethod_0" value="radio" checked="">
+                        <span>MS Word</span>
+                    </label>
+                    <br>
+                    <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_1">
+                        <span>PDF</span>
+                    </label>
+                    <br>
+                    <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>Blackboard Pool Manager</span>
+                    </label>
+                    <br>
+                    <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>Blackboard Test Manager</span>
+                    </label>
+                    <br>
+                    <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>QTI 2.1</span>
+                    </label>
+                    <br>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="bold">Answer Area:</div>
+        <div>
+            <form name="form2" method="post" action="">
+                <p class="btn-radio">
+                    <label class="text-radio-label margin-top-5">
+                        <input name="Contact Method" type="radio" id="ContactMethod_0" value="radio" checked="">
+                        <span>MS Word</span>
+                    </label>
+                    <br>
+                    <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_1">
+                        <span>PDF</span>
+                    </label>
+                    <br>
+                    <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>Blackboard Pool Manager</span>
+                    </label>
+                    <br>
+                    <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>Blackboard Test Manager</span>
+                    </label>
+                    <br>
+                    <label class="text-radio-label margin-top-5">
+                        <input type="radio" name="Contact Method" value="radio" id="ContactMethod_2">
+                        <span>QTI 2.1</span>
+                    </label>
+                    <br>
+                </p>
+            </form>
+        </div>
+    </div>
+     -->

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Evalu8 by Pearson</title>
+</head>
+<body>
+
+<div >
+	<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);" ng-class="{signInBorder:unauthorised}">
+		<h3 ng-show="!unauthorised">Signing in...</h3>		
+		
+		<div ng-show="unauthorised" style="font-size:16px">
+			<div><p>Your instructor credentials are created. 
+			<a href="http://qa02.us.ls.wcm.svvsbak.pearsontc.net/pearsonhigheredus/ircrequestaccess/irc_countries_selection.page?productCode=test_builder">Click here </a> to verify your Educator status as part of your new account creation. 
+			This may take up to 48 hours to complete.</p>
+			<p>Please return to Test Builder and log in again.
+			<a href="" ng-click="logout()">Sign in using different account</a></p></div>
+			<div>For any questions or concerns, please contact
+			<a href="http://247pearsoned.custhelp.com/app/answers/detail/a_id/13366">Pearson Technical Support</a></div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<div class="advancedSearchCriteria" ng-show="showAdvancedSearch">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<button type=" button" class="close"
+					ng-click="closeAdvancedSearch()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1 text-left">
+				<h5 class="bold">Type</h5>
+			</div>
+			<div class="col-md-11 margin-bot-10">
+				<div>
+					<div class="col-md-4"
+						 ng-class="isThisQuizTypeSelected('ES')?'ck-buttonSelected':'ck-button'"
+                        ng-click='toggleQuestiontypeSelection("ES")'>Essay</div>
+					<div class="col-md-4"
+						ng-class="isThisQuizTypeSelected('MR')?'ck-buttonSelected':'ck-button'"
+                        ng-click='toggleQuestiontypeSelection("MR")'>
+						Multiple Response</div>
+					<div class="col-md-4"
+						ng-class="isThisQuizTypeSelected('MT')?'ck-buttonSelected':'ck-button'"
+                        ng-click='toggleQuestiontypeSelection("MT")'>Matching
+					</div>
+				</div>
+				<div>
+					<div class="col-md-4"
+						ng-class="isThisQuizTypeSelected('MC')?'ck-buttonSelected':'ck-button'"
+                        ng-click='toggleQuestiontypeSelection("MC")'>
+						Multiple Choice</div>
+					<div class="col-md-4"
+						 ng-class="isThisQuizTypeSelected('TF')?'ck-buttonSelected':'ck-button'"
+                        ng-click='toggleQuestiontypeSelection("TF")'>True
+						False</div>
+					<div class="col-md-4"
+						ng-class="isThisQuizTypeSelected('FIB')?'ck-buttonSelected':'ck-button'"
+                        ng-click='toggleQuestiontypeSelection("FIB")'>Fill
+						in the Blanks</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" ng-show="isAnyMetadataSelected()">
+			<div class="col-md-1 text-left">
+				<h5 class="bold">Metadata</h5>
+			</div>
+			<div class="col-md-11 text-left margin-top-10">
+			</div>
+		</div>
+		<div class="row">
+			<div class='col-md-12 metadatarow' ng-repeat="node in userMetadata">
+				<div class='col-md-1 metdatalabelSearch floatLeftImp'>{{node.name}}:</div>
+				<div class="col-md-11 metdataVal floatLeftImp" ng-if="node.key=='Diff'">
+					<div class="floatLeftImp" ng-repeat="level in difficultyLevels">
+						<div class="width70Imp"  ng-class="isGivenLevelSelected(level.value)?'ck-buttonSelected':'ck-button'"
+							ng-click='selectLevel(level.value)'>{{level.name}}</div>
+					</div>
+				</div>
+				<div class="col-md-11 metdataVal" ng-if="node.key!='Diff'">
+					<input type="textbox" id="{{node}}" ng-model="metadataValues[node.key]"
+						ng-change="enableDisableSearch()" class='metdataInput' maxlength="100"></input>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="row col-lg-12 text-right margin-bot-10">
+				<button ng-click="closeAdvancedSearch()" class="backButton">Cancel</button>
+				<button class="nextButton" ng-class="{btnDisbled : isSaveDisabled }"
+					ng-disabled="isSaveDisabled"
+					ng-click="searchBooksForQuestionTypes()">Search</button>
+			</div>
+		</div>
+	</div>
+</div>

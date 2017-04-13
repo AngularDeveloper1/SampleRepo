@@ -1,0 +1,23 @@
+<div class="modal-body">
+	<button type="button" style="margin-top: -8px;" 
+    class="close" data-ng-click="close()"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<div class="row">
+		<div class="col-md-10">
+		<div><span class="glyphicon glyphicon-alert wizardError"></span>&nbsp;
+		</div>
+			<ul class="error-messages wizardErrorMsg">
+				<li ng-repeat="error in errorMessages">
+				<b>{{error.title}}</b> - {{error.message}}</li>
+			</ul>
+	
+		</div>
+	</div>
+</div>
+
+<div class="alertMsgFooter">
+	<button type="button" class="btn btn-primary" data-dismiss="modal"
+		data-ng-click="close()">Ok</button>
+</div>

@@ -1,0 +1,19 @@
+<div class="questionTemplateContainer">   
+    <div class="tree-node tree-node-content ">
+        <div data-ui-tree id="Custom-Qstn-tree-root" class="custom-qstn-tree-root">
+            <ol data-nodrop droppable="false" data-ui-tree-nodes data-ng-model="questionTemplates">
+                <li qstntemplate={{node.qstnTemplate}} quiztype={{node.quizType}} printmode="true" class="questionTemplates" optionsview={{node.optionsView}} data-ng-repeat="node in questionTemplates" data-ui-tree-node
+                    data-ng-include="'question_renderer.html'"></li>
+            </ol>
+        </div>
+
+        <script type="text/ng-template" id="question_renderer.html">
+            <div ui-tree-handle class="questionTemplate tree-node tree-node-content">
+ 			<button class="plusIconQT newTest-close glyphicon glyphicon-plus" ng-mousedown="editQuestion(this)" tooltip-append-to-body="true" tooltip="Move template to right to create question" tooltip-placement="bottom"
+          tooltip-trigger="mouseenter"></button>
+                <div class='printViewContainer' ng-if="node" ng-bind-html="getCustomQuestionHTML(this)">
+                </div>
+            </div>
+        </script>
+    </div>
+</div>

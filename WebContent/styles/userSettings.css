@@ -1,0 +1,122 @@
+.containerDiv {
+	margin: auto;
+	padding: 80px;
+}
+.outlineDiv {	
+	margin: auto; 
+	border: 2px dotted; 
+	border-radius: 25px; 
+	border-color: #933939; 
+	width: 950px; 
+	font-size: small
+}
+
+.outlineHeaderText {	
+	color: #933939; 
+	background-color: #eee; 
+	margin-top: -10px; 
+	margin-left: 40px;
+	padding-left: 7px; 
+	padding-right: 7px;
+	float: left;
+	font-style: italic;
+}
+
+.checkboxPanelDiv {
+	max-height: 300px; 
+	overflow: auto;	
+}
+
+.checkboxDiv {
+	float: left; 
+	padding-bottom: 8px; 
+	padding-right: 4px;	
+}
+
+.checkboxLabelDiv {
+	float: left; 
+	width: 400px; 
+	padding-bottom: 8px; 
+	padding-right: 20px;
+}
+
+.selectDiscipline {	
+	text-align: left;
+	font-family: Helvetica Neue Light;	
+	margin-top: 25px;
+	margin-bottom: 25px;
+	white-space: normal;	
+	font-size: 11px;
+	padding: 7px;
+	border-radius:3px;	
+	cursor: default;	
+}
+.workSpaceSection{
+	padding-top: 21px;
+}
+
+.disableUserBook {
+	opacity: .65;
+	background-color: #A0D1E1 !important;
+  	color: #EEF8FC;
+  	cursor: default !important;
+}
+
+.userBooksContainer {
+	display: inline-block;
+	width: 100%;
+    overflow: auto;
+    overflow-x: hidden;	
+}
+
+.userBooks {
+	display: inline-block;
+	width: 100%;
+	float: left;	
+}
+
+.userBookRow {	
+	width: 100%;
+	border: solid 0px #fff;
+	border-bottom: 1px solid #E0E0E0;
+	background-color: #fff;
+	outline: none;
+}
+
+.importInPopUp .importTestDiv {
+	width: 100%;
+}
+
+.importInPopUp .userBookRow {
+	width: 100%;
+}
+
+.importInPopUp .userBooksContainer {
+	height: 285px;
+}
+
+section[canenter="enterUserBooks"] div.userBooksContainer{
+	position:absolute !important;
+	top: 52px;
+    bottom: 0;
+    right: 0;
+    margin-right: 6px
+    }
+
+.selectedUserBook {
+	background-color: #007FA9;
+	color: #fff;
+	cursor: pointer;
+	border: solid 0px #fff;	
+}
+
+.bookTitleContainer {
+	min-height: 40px;
+	padding-left: 20px;
+	font-family: Helvetica Neue Light;
+	font-size: 14px;
+	padding: 10px;
+	position: initial;
+	line-height: 1em;	
+	text-align: left;
+}
